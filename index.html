@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fashion Store - Home</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(90deg, #d9f99d, #e5e7eb);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #3f6212;
+    }
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav a:hover, nav a.active {
+      color: #65a30d;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 40px 20px;
+      background: #fff;
+    }
+    .slider {
+      position: relative;
+      max-width: 800px;
+      margin: 20px auto;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .slide {
+      min-width: 100%;
+      text-align: center;
+    }
+    .slide img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
+    .slide img:hover {
+      transform: scale(1.05);
+    }
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(255,255,255,0.7);
+      border: none;
+      font-size: 2em;
+      cursor: pointer;
+      padding: 5px 10px;
+    }
+    .prev { left: 10px; }
+    .next { right: 10px; }
+
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 40px 20px;
+    }
+    .category-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .category-card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .category-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #65a30d;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #3f6212;
+    }
+
+    .products {
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .product-card {
+      background: #fff;
+      padding: 15px;
+      border-radius: 15px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .product-card:hover {
+      transform: translateY(-10px) rotate3d(1,1,0,5deg);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .product-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    /* Footer Styles */
+    footer {
+      background: linear-gradient(90deg, #d9f99d, #e5e7eb);
+      padding: 40px 0 20px;
+      margin-top: 50px;
+      border-top: 2px solid #65a30d;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .footer-section {
+      flex: 1;
+      min-width: 200px;
+      margin-bottom: 30px;
+      padding: 0 15px;
+    }
+
+    .footer-section h3 {
+      color: #3f6212;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: #65a30d;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: #333;
+      text-decoration: none;
+      transition: color 0.3s, padding-left 0.3s;
+      display: block;
+    }
+
+    .footer-links a:hover {
+      color: #65a30d;
+      padding-left: 5px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding: 20px 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      margin-top: 30px;
+      color: #3f6212;
+      font-weight: bold;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-icons a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background-color: #3f6212;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .social-icons a:hover {
+      background-color: #65a30d;
+      transform: translateY(-5px);
+    }
+
+    .newsletter-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .newsletter-form input {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .newsletter-form button {
+      padding: 12px;
+      background-color: #3f6212;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .newsletter-form button:hover {
+      background-color: #65a30d;
+    }
+
+    @media (max-width: 768px) {
+      .footer-section {
+        flex: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">FashionStore</div>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="men.html">Men</a>
+      <a href="women.html">Women</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Hot Deals / Flash Sale</h1>
+    <div class="slider">
+      <button class="prev">&#10094;</button>
+      <div class="slides">
+        <div class="slide"><img src="image/hot_deal_1.png" alt="Deal 1"><p>Summer Collection - Up to 50% Off</p></div>
+        <div class="slide"><img src="image/hot_deal_2.jpg" alt="Deal 2"><p>New Arrivals - Limited Stock</p></div>
+        <div class="slide"><img src="image/hot_deal_3.png" alt="Deal 3"><p>Free Shipping on Orders Over $50</p></div>
+      </div>
+      <button class="next">&#10095;</button>
+    </div>
+  </section>
+
+  <section class="categories">
+    <div class="category-card">
+      <img src="image/men_shirt.png" alt="Men">
+      <h2>Men Collection</h2>
+      <a href="men.html" class="btn">Explore Men</a>
+    </div>
+    <div class="category-card">
+      <img src="image/rsz_women_dress1.png" alt="Women">
+      <h2>Women Collection</h2>
+      <a href="women.html" class="btn">Explore Women</a>
+    </div>
+  </section>
+
+  <section class="products">
+    <h1>Featured Products</h1>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="image/men_shirt1.png" alt="Product">
+        <h3>Premium Shirt</h3>
+        <p>৳3500.00</p>
+      </div>
+      <div class="product-card">
+        <img src="image/rsz_1desinger_dress.png" alt="Product">
+        <h3>Designer Dress</h3>
+        <p>৳4500.00</p>
+      </div>
+      <div class="product-card">
+        <img src="image/rsz_1causual_jeans.png" alt="Product">
+        <h3>Casual Jeans</h3>
+        <p>৳2500.00</p>
+      </div>
+      <div class="product-card">
+        <img src="image/rsz_Fashion Accessories.png" alt="Product">
+        <h3>Fashion Accessories</h3>
+        <p>৳1200.00</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Categories</h3>
+        <ul class="footer-links">
+          <li><a href="men.html">Men</a></li>
+          <li><a href="women.html">Women</a></li>
+          <li><a href="#">Kids</a></li>
+          <li><a href="#">Accessories</a></li>
+          <li><a href="#">New Arrivals</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Customer Service</h3>
+        <ul class="footer-links">
+          <li><a href="#">Order & Cancellation</a></li>
+          <li><a href="#">Shipping & Delivery</a></li>
+          <li><a href="#">Returns & Exchanges</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>More</h3>
+        <ul class="footer-links">
+          <li><a href="#">Customer Reviews</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Store Locator</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Stay Connected</h3>
+        <p>Subscribe to our newsletter for updates</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Enter your email">
+          <button type="submit">Subscribe</button>
+        </div>
+        <div class="social-icons">
+          <a href="#" title="Facebook">f</a>
+          <a href="#" title="Instagram">i</a>
+          <a href="#" title="Twitter">t</a>
+          <a href="#" title="YouTube">y</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 Fashion Store. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    let slideIndex = 0;
+    const slides = document.querySelector('.slides');
+    const totalSlides = document.querySelectorAll('.slide').length;
+
+    document.querySelector('.next').addEventListener('click', () => {
+      slideIndex = (slideIndex + 1) % totalSlides;
+      updateSlide();
+    });
+
+    document.querySelector('.prev').addEventListener('click', () => {
+      slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
+      updateSlide();
+    });
+
+    function updateSlide() {
+      slides.style.transform = `translateX(-${slideIndex * 100}%)`;
+    }
+  </script>
+</body>
+</html>
